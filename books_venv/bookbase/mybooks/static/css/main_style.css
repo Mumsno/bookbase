@@ -1,0 +1,23 @@
+.special-font
+{
+    font-family: "Varela Round" !important;
+}
+
+.md-button.md-fab.md-fab-bottom-left {
+top: auto;
+left: 20px;
+bottom: 20px;
+right: auto;
+position: fixed;
+}
+
+input
+{
+    font-family: "Varela Round";
+}
+
+.full-heigth {
+    height: -moz-calc(100% - 64px);
+    height: -webkit-calc(100% - 64px);
+    height: calc(100% - 64px);
+}

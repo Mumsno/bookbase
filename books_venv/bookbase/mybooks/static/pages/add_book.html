@@ -1,0 +1,35 @@
+<md-dialog md-theme="card-theme" class="special-font">
+    <form style="margin:0">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>הוספת ספר חדש</h2>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content" layout="column">
+                <form>
+                    <md-input-container>
+                        <md-icon class="material-icons">book</md-icon>
+                        <label>שם הספר</label>
+                        <input class="special-font" ng-model="form.book_name" type="text" required>
+                    </md-input-container>
+                    <md-input-container>
+                        <md-icon class="material-icons">person</md-icon>
+                        <label>שם הסופר</label>
+                        <input class="special-font" ng-model="form.author" type="text" required>
+                    </md-input-container>
+                    <md-input-container>
+                        <md-icon class="material-icons">note</md-icon>
+                        <label>הערות</label>
+                        <textarea class="special-font" ng-model="form.notes" md-maxlength="150" rows="1"></textarea>
+                    </md-input-container>
+                    <md-button ng-click="add_book();" type="submit" class="md-primary md-raised"
+                               ng-disabled="!form || (!form.book_name || form.book_name.length <= 1) || (!form.author || form.author <= 1)">
+                        <md-icon class="material-icons">add</md-icon>
+                        הוספה למאגר
+                    </md-button>
+                </form>
+            </div>
+        </md-dialog-content>
+    </form>
+</md-dialog>

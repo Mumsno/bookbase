@@ -1,0 +1,75 @@
+<html lang="he" dir="rtl">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MyBooks</title>
+    <link rel="stylesheet" href="static/css/angular-material.min.css">
+    <link rel="stylesheet" href="static/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="https://fonts.googleapis.com/css?family=Secular+One|Varela+Round" rel="stylesheet">
+    <link href="static/css/main_style.css" rel="stylesheet">
+    <!-- Angular Material requires Angular.js Libraries -->
+    <script src="static/js/angular.min.js"></script>
+    <script src="static/js/angular-animate.min.js"></script>
+    <script src="static/js/angular-aria.min.js"></script>
+    <script src="static/js/angular-messages.min.js"></script>
+    <script src="static/js/angular-material-icons.min.js"></script>
+    <script src="static/js/angular-route.js"></script>
+</head>
+<body ng-app="my_books" ng-controller="main_controller" ng-cloak>
+<md-toolbar class="md-whiteframe-2dp" layout="row" layout-align="center center">
+    <md-button class="md-icon-button" ng-disabled="!previous || loading" ng-click="paginate(false)">
+        <md-icon>arrow_forward</md-icon>
+    </md-button>
+    <form ng-submit="get_data('/books')" style="padding: 0" layout="row" class="md-toolbar-tools"
+          layout-align="center center">
+        <!--<md-input-container class="special-font md-block" flex>-->
+        <!--<label>חיפוש לפי שם ספר/שם הכותב</label>-->
+        <!--<input ng-model="search" class="special-font">-->
+        <!--</md-input-container>-->
+        <md-autocomplete ng-disabled="loading" class="special-font" placeholder="חיפוש לפי שם ספר/שם הכותב" md-search-text="search_text"
+                         md-min-length="2"
+                         md-search-text-change="query_search(search_text)" md-selected-item-change="get_data('/books')"
+                         md-items="item in search_results" md-item-text="item.book_name" flex>
+            <md-item-template class="special-font">
+                {%verbatim%}
+                <span class="special-font" md-highlight-text="search_text" md-highlight-flags="^i">{{item.book_name}} מאת {{item.author}}</span>
+                {%endverbatim%}
+            </md-item-template>
+            <md-not-found>
+                אין תוצאות
+            </md-not-found>
+        </md-autocomplete>
+    </form>
+    <md-button class="md-icon-button" ng-disabled="!next || loading" ng-click="paginate(true)">
+        <md-icon>arrow_back</md-icon>
+    </md-button>
+    <!--<img src="static/images/logo.png" style="height: 80px; width: 80px">-->
+</md-toolbar>
+<md-content>
+    <div layout-align="center center" layout="row" ng-if="loading">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+    {%verbatim%}
+    <div class="special-font" layout="row" layout-align="center">
+        <span>דפים:&nbsp;</span>
+        <span ng-if="total_pages">{{current_page}}/{{total_pages}}</span>
+        <span ng-if="!total_pages">{{current_page}}</span>
+    </div>
+    {%endverbatim%}
+    <ng-view></ng-view>
+</md-content>
+<md-button ng-click="open_dialog()" class="md-fab md-accent md-fab-bottom-left">
+    <md-icon class="material-icons md-48" md-colors="{color: 'red-800'}">add</md-icon>
+</md-button>
+<script src="static/js/lodash.js"></script>
+<!-- Angular Material Library -->
+<script src="static/js/angular-material.min.js"></script>
+<!-- Your application bootstrap  -->
+<script>
+    var app = angular.module("my_books", ['ngMaterial', 'ngRoute', 'ngMdIcons']);
+</script>
+<script src="static/js/controllers/main_controller.js"></script>
+<script src="static/js/controllers/dialog_controller.js"></script>
+<script src="static/js/ng-infinite-scroll.js"></script>
+</body>
+</html>
